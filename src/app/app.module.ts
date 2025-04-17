@@ -3,31 +3,37 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './feature/auth/auth.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for animations
-import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { ToastrModule } from 'ngx-toastr'; 
 import { HttpClientModule } from '@angular/common/http';
-import { SidebarComponent } from './shared/sidebar/sidebar.component'; // Import HttpClientModule
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppInterceptor } from './core/interceptors/app.interceptor';
+import { AuthGuard } from './core/guards/auth.guard';
+import { LoadingModule } from './feature/loading/loading.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SidebarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
     BrowserAnimationsModule,
-    HttpClientModule, // Add HttpClientModule for AuthService HTTP requests
-    ToastrModule.forRoot({ // Configure Toastr globally
-      timeOut: 3000, // Toast duration (3 seconds)
-      positionClass: 'toast-top-right', // Position of the toast
-      preventDuplicates: true, // Prevent duplicate toasts
-      progressBar: true, // Show a progress bar
-      closeButton: true // Show a close button
-    })
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, 
+      positionClass: 'toast-top-right', 
+      preventDuplicates: true, 
+      progressBar: true, 
+      closeButton: true 
+    }),
+    LoadingModule 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

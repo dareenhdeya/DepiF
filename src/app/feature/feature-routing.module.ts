@@ -4,8 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: 'auth',
@@ -15,7 +20,7 @@ const routes: Routes = [
   {
     path: 'note',
     loadChildren: () =>
-      import('./note/note.module').then(m => m.NOTEModule)  // Fixed case: 'NOTEModule' -> 'NoteModule'
+      import('./note/note.module').then(m => m.NoteModule)  
   }
 ];
 

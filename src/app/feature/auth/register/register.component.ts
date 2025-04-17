@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,27 +28,34 @@ export class RegisterComponent {
       address: ['', Validators.required]
     });
   }
-  loading = false;
 
   onSubmit() {
     this.registerForm.markAllAsTouched();
   
     if (this.registerForm.valid) {
-      this.loading = true; // Start loading
+      this.loading = true; 
   
       this.authService.register(this.registerForm.value).subscribe({
-        next: (response) => {
+        next: (response: { token: string }) => {
           this.loading = false;
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
           this.toastr.success('Account created successfully! Welcome!', 'Success');
-          this.router.navigate(['auth/signin']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           this.loading = false;
-          this.toastr.error('Registration failed: ' + (error.message || 'Please try again.'), 'Error');
+          const errorMessage = error.error?.message || error.message || 'Please try again.';
+          if (errorMessage.toLowerCase().includes('user already exists') || errorMessage.toLowerCase().includes('email already exists')) {
+            this.toastr.error('This email is already registered. Please use a different email.', 'Error');
+          } else {
+            this.toastr.error('Registration failed: ' + errorMessage, 'Error');
+          }
         }
       });
     } else {
       this.toastr.warning('Please fill out all required fields correctly.', 'Warning');
     }
   }
-}  
+}
