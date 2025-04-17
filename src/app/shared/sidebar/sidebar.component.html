@@ -6,9 +6,11 @@
       </div>
       
       <div class="user-profile">
-        <div class="avatar"></div>
+        <div class="avatar">
+          <img src="../../../assets/image/WhatsApp Image 2025-02-07 at 13.46.23_83b9fdf9.jpg" alt="" style="width: 50px; border-radius: 50%;">
+        </div>
         <div class="user-info">
-          <h3 class="user-name">Karthi Madesh</h3>
+          <h3 class="user-name">Muhmd</h3>
           <span class="user-role">user</span>
         </div>
       </div>
@@ -21,14 +23,16 @@
               <span>Home</span>
             </a>
           </li>
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="icon list-icon"></i>
-              <span>show all notes</span>
-            </a>
-          </li>
+          <a class="nav-link" routerLink="/note/all">
+            <i class="icon list-icon"></i>
+            <span>Show All Notes</span>
+          </a>
+        </li>
+
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link" routerLink="/note/create">
               <i class="icon add-icon"></i>
               <span>create note</span>
             </a>
@@ -43,12 +47,11 @@
       </nav>
       
       <div class="sidebar-footer">
-        <button class="logout-btn">
+        <button class="logout-btn" (click)="logout()">
           <span>Logout</span>
           <i class="icon logout-icon"></i>
         </button>
       </div>
-    </aside>
   
     <!-- Main Content Area -->
     <main class="main-content">
@@ -57,4 +60,6 @@
      
       
     </main>
-  </div>
+
+    </aside>
+</div>

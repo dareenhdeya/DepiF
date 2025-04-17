@@ -23,6 +23,9 @@
       </div>
   
       <button type="submit" [disabled]="loginForm.invalid">SIGN IN</button>
-      <a href="#" class="forgot-password">Forgot your password? Reset Password</a>
-    </form>
+
+      <a routerLink="/auth/register" class="text-primary text-decoration-none link" >
+        Don't have an account? Register here
+      </a>
+          </form>
   </div>
