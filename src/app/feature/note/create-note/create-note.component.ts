@@ -56,7 +56,7 @@ export class CreateNoteComponent implements OnInit {
           console.log('Note added:', note);
           this.toastr.success('Note added successfully!', 'Success');
           this.noteForm.reset();
-          this.router.navigate(['/']);
+          this.router.navigate(['/note/all']);
         },
         (error) => {
           console.error('Error adding note:', error);
@@ -67,7 +67,7 @@ export class CreateNoteComponent implements OnInit {
   }
 
   goHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
   
 

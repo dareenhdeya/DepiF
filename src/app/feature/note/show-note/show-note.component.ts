@@ -28,7 +28,8 @@ export class ShowNoteComponent implements OnInit {
     if (id) {
       this.noteService.getNoteById(id).subscribe(
         (res: Note) => {
-          this.note = {
+           this.note =
+          {
             ...res,
             tags: this.normalizeTags(res.tags),
           };

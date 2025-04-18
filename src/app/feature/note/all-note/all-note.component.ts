@@ -65,7 +65,11 @@ export class AllNoteComponent implements OnInit {
   notes: Note[] = [];
   deleteStates: { [key: number]: string } = {};
 
-  constructor(private noteService: NoteService, private router: Router, private toastr: ToastrService) {}
+  constructor(
+    private noteService: NoteService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getAllNotes();
@@ -81,55 +85,89 @@ export class AllNoteComponent implements OnInit {
     return [];
   }
 
-  getAllNotes() {
-    this.noteService.getNotes().subscribe({
-      next: (notes) => {
-        this.notes = notes.map((note) => ({
+  getAllNotes(): void {
+    this.noteService.getNotes().subscribe(
+      (res: Note[]) => {
+        // this.notes = res;
+        this.notes = res.map(note => ({
           ...note,
-          tags: this.normalizeTags(note.tags),
+          tags: this.normalizeTags(note.tags)
         }));
       },
-      error: (err) => console.error(err),
-    });
+      (err) => {
+        console.error(err);
+      }
+    );
   }
 
   deleteAllNotes(): void {
     if (confirm('Are you sure you want to delete all notes?')) {
-      this.noteService.deleteAllNotes().subscribe({
-        next: () => {
+      this.noteService.deleteAllNotes().subscribe(
+        (res: Note[]) => {
+          console.log(res);
           this.notes = [];
-          this.toastr.success('All notes were deleted successfully!');
+          this.toastr.success('All data were deleted successfully!');
         },
-        error: (err) => {
-          console.error('Error deleting all notes:', err);
-          
-          this.toastr.error('An error occurred while deleting all notes!');
+        (err) => {
+          console.error(err);
+          this.toastr.error('An error occurred while deleting all data!');
+        }
+      );
+    }
+    this.noteService;
+  }
+
+  getAllData(): void {
+    this.noteService.getNotes().subscribe(
+      (res: Note[]) => {
+        this.notes = res;
+        this.toastr.success('All data fetched successfully!');
+      },
+      (err) => {
+        console.error(err);
+        this.toastr.error('An error occurred while fetching the data!');
+      }
+    );
+  }
+
+  deleteAllData(): void {
+    const confirmDelete = confirm('Are you sure you want to delete all data?');
+    if (confirmDelete && this.notes.length > 0) {
+      this.noteService.deleteAllNotes().subscribe(
+        (res: Note[]) => {
+          console.log(res);
+          this.notes = [];
+          this.toastr.success('All data were deleted successfully!');
         },
-      });
+        (err) => {
+          console.error(err);
+          this.toastr.error('An error occurred while deleting all data!');
+        }
+      );
     }
   }
 
   deleteOneNote(note: Note): void {
-    if (note.id && confirm(`Are you sure you want to delete the note titled "${note.title}"؟`)) {
-      this.noteService.deleteNote(note.id).subscribe({
-        next: () => {
-          this.notes = this.notes.filter((n) => n.id !== note.id);
-          this.toastr.success(`The note titled "${note.title}" was deleted successfully!`);
-        },
-        error: (err) => {
-          console.error('Error deleting note:', err);
-          this.toastr.error(`An error occurred while deleting the note titled "${note.title}"!`);
-        },
-      });
-    }
+
+    setTimeout(() => {
+      this.noteService.deleteNote(note.id).subscribe(
+        () => {
+          this.notes = this.notes.filter((e) => e.id !== note.id);
+          delete this.deleteStates[note.id];
+          this.toastr.success(
+            `The note titled "${note.title}" was deleted successfully!`
+          );
+        }
+      );
+    }, 800);
   }
+
 
   goToNote(note: Note): void {
     this.router.navigate([`/note/show-note/${note.id}`]);
   }
-  
+
   editNote(note: Note): void {
     this.router.navigate([`/note/update/${note.id}`]);
   }
- 
 }

@@ -5,7 +5,7 @@ import { ErrorPageComponent } from './feature/error-page/error-page.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth/register', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () => import('./feature/auth/auth.module').then(m => m.AuthModule)

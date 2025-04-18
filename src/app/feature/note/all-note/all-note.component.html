@@ -25,7 +25,7 @@
         class="rowdata"
         *ngFor="let note of notes"
         [@noteAnimation]
-        [@creativeDelete]="deleteStates[note.id ?? -1] || 'visible'"
+        [@creativeDelete]="deleteStates[note.id] || 'visible'"
         data-aos="fade-right"
       >
       <div>{{ note.title }}</div>
