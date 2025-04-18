@@ -1,1 +1,67 @@
-<p>create-note works!</p>
+<div class="layout">
+  <app-sidebar></app-sidebar>
+  <div class="container">
+    <div class="form-card">
+      <div id="tsparticles"></div>
+      <h1>{{ noteForm.value.title || 'Create a New Note' }}</h1>
+  
+      <form [formGroup]="noteForm" (ngSubmit)="addNote()">
+        <div class="form-field">
+          <label for="title">Title:</label>
+          <input type="text" id="title" formControlName="title" class="input-field" required />
+          <div *ngIf="noteForm.controls['title'].touched && noteForm.controls['title'].invalid" class="error-message">
+              <div *ngIf="noteForm.controls['title'].errors?.['required']">Title is required</div>
+              <div *ngIf="noteForm.controls['title'].errors?.['minlength']">Title must be at least 3 characters</div>
+              <div *ngIf="noteForm.controls['title'].errors?.['maxlength']">Title must be at most 50 characters</div>
+            </div>
+            
+        </div>
+  
+        <div class="form-field">
+          <label for="content">Content:</label>
+          <textarea id="content" formControlName="content" class="input-field" required></textarea>
+          <div *ngIf="noteForm.controls['content'].touched && noteForm.controls['content'].invalid" class="error-message">
+              <div *ngIf="noteForm.controls['content'].errors?.['required']">Content is required</div>
+              <div *ngIf="noteForm.controls['content'].errors?.['minlength']">Content must be at least 10 characters</div>
+            </div>
+            
+        </div>
+  
+        <div class="form-field">
+          <label for="category">Category:</label>
+          <input type="text" id="category" formControlName="category" class="input-field" />
+          <div *ngIf="noteForm.controls['category'].touched && noteForm.controls['category'].invalid" class="error-message">
+              <div *ngIf="noteForm.controls['category'].errors?.['required']">Category is required</div>
+              <div *ngIf="noteForm.controls['category'].errors?.['pattern']">Category must contain letters only</div>
+            </div>
+            
+        </div>
+  
+        <div class="form-field">
+          <label for="priority">Priority:</label>
+          <input type="text" id="priority" formControlName="priority" class="input-field" />
+          <div *ngIf="noteForm.controls['priority'].touched && noteForm.controls['priority'].invalid" class="error-message">
+              <div *ngIf="noteForm.controls['priority'].errors?.['required']">Priority is required</div>
+              <div *ngIf="noteForm.controls['priority'].errors?.['pattern']">Priority must be a number from 1 to 5</div>
+            </div>
+            
+        </div>
+  
+        <div class="form-field">
+          <label for="tags">Tags:</label>
+          <input type="text" id="tags" formControlName="tags" class="input-field" />
+          <div *ngIf="noteForm.controls['tags'].touched && noteForm.controls['tags'].invalid" class="error-message">
+              <div *ngIf="noteForm.controls['tags'].errors?.['required']">Tags are required</div>
+              <div *ngIf="noteForm.controls['tags'].errors?.['pattern']">Tags must be comma-separated words</div>
+            </div>
+            
+        </div>
+  
+        <div class="button-container">
+          <button type="submit" class="submit-btn" [disabled]="noteForm.invalid">Add Note</button>
+          <button type="button" class="cancel-btn" (click)="goHome()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div> 
+  </div> 

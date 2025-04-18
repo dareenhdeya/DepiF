@@ -12,7 +12,6 @@ $success-color: #10b981;
 $danger-color: #ef4444;
 $warning-color: #f59e0b;
 
-// Mixins
 @mixin transition($property: all, $duration: 0.3s, $timing: ease) {
   transition: $property $duration $timing;
 }
@@ -326,7 +325,6 @@ body {
   }
 }
 
-// Counter animation
 @keyframes fadeInScale {
   0% {
     opacity: 0;
@@ -338,7 +336,6 @@ body {
   }
 }
 
-// Responsive styles
 @media (max-width: 1024px) {
   .sidebar {
     width: 240px;
@@ -367,13 +364,6 @@ body {
   }
 }
 
-// Icon placeholders (replace with actual icons in your implementation)
 .icon {
   display: inline-block;
-}
-
-// You'll replace these with actual icons from a library like Font Awesome or Material Icons
-.home-icon, .list-icon, .add-icon, .delete-icon, .logout-icon, 
-.refresh-icon, .document-icon, .payment-icon, .quantity-icon {
-  // Icon styles will be applied when you add the actual icons
 }

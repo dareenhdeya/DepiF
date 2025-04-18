@@ -12,7 +12,6 @@ $success-color: #10b981;
 $danger-color: #ef4444;
 $warning-color: #f59e0b;
 
-// Mixins
 @mixin transition($property: all, $duration: 0.3s, $timing: ease) {
   transition: $property $duration $timing;
 }
@@ -32,7 +31,6 @@ $warning-color: #f59e0b;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }
-
 
 * {
   margin: 0;
@@ -64,10 +62,25 @@ body {
   bottom: 0;
   z-index: 10;
   @include shadow(2);
+  @include transition(width);
+  
+  &.collapsed {
+    width: 80px;
+    
+    .brand-title {
+      display: none;
+    }
+    
+    .nav-link {
+      justify-content: center;
+      padding: 0.75rem;
+    }
+  }
   
   .brand {
     padding: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
     
     .brand-title {
       font-size: 1.25rem;
@@ -85,6 +98,37 @@ body {
         height: 100%;
         width: 4px;
         background-color: $primary-color;
+      }
+    }
+    
+    .toggle-btn {
+      position: absolute;
+      right: 1rem;
+      top: 1.5rem;
+      background-color: transparent;
+      border: 1px solid $primary-color;
+      border-radius: 50%;
+      color: $primary-color;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      @include flex-center;
+      @include transition(all, 0.3s, ease);
+      
+      &:hover {
+        background-color: $primary-dark;
+        color: $sidebar-text;
+        border-color: $primary-dark;
+        transform: rotate(90deg);
+      }
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px $primary-light;
+      }
+      
+      .fas {
+        font-size: 16px;
       }
     }
   }
@@ -181,7 +225,7 @@ body {
     .logout-btn {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content:center;
       width: 100%;
       padding: 0.75rem 1rem;
       background-color: transparent;
@@ -202,4 +246,39 @@ body {
       }
     }
   }
+}
+
+.main-content {
+  width: calc(100% - 280px);
+  @include transition(margin-left, width);
+  
+  &.expanded {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: inherit;
+  padding: 0.5rem;
+  padding-right: 3rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: #00cccc;
+  }
+}
+
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

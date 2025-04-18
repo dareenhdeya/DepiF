@@ -39,9 +39,7 @@ export class SigninComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response: { token: string; user: { name: string; role: string } }) => {
           if (response.token) {
-            // تخزين الـ token
             localStorage.setItem('token', response.token);
-            // تخزين بيانات المستخدم
             localStorage.setItem('user', JSON.stringify(response.user));
             this.toastr.success('Successful login, welcome!', 'Success');
             this.router.navigate(['/home']);

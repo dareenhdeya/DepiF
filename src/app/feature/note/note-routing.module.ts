@@ -16,7 +16,7 @@ const routes: Routes = [
     component: CreateNoteComponent
   },
   {
-    path: 'show/:id',
+    path: 'show-note/:id',
     component: ShowNoteComponent
   },
   {

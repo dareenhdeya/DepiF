@@ -10,6 +10,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from './core/interceptors/app.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
 import { LoadingModule } from './feature/loading/loading.module';
+import { SidebarComponent } from './shared/sidebar/sidebar.component'; // Import HttpClientModule
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { LoadingModule } from './feature/loading/loading.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot({
@@ -28,7 +31,8 @@ import { LoadingModule } from './feature/loading/loading.module';
       progressBar: true, 
       closeButton: true 
     }),
-    LoadingModule 
+    LoadingModule ,
+    SidebarComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

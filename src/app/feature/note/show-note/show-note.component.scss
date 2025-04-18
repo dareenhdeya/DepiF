@@ -1,0 +1,149 @@
+.layout {
+  display: flex;
+}
+body {
+    box-sizing: border-box; 
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+     height: 100vh;
+  }
+    
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 27px;
+      z-index: 2;
+      position: relative;
+      margin-left: 280px;
+      height: 100vh;
+    }
+  
+
+.note-card {
+  position: relative;
+  z-index: 10000000;
+  background-color: #1f2937;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+  transition: transform 0.5s ease;
+  animation: scaleIn 1s ease-out;
+  height: auto;
+  min-height: 300px;
+  margin: 20px 0;
+  color: #fff;
+}
+
+.note-card h1 {
+  font-size: 2rem;
+  color: #00cccc;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  background: linear-gradient(80deg, #1f2937, #00cccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px #00cccc, 0 0 40px #1f2937;
+  animation: fadeInTitle 2s ease-in-out, glow 1.5s infinite alternate;
+}
+
+.note-details p {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 48%;
+}
+
+
+    .submit-btn {
+      position: relative;
+      overflow: hidden;
+      background-color: #00cccc;
+      color: white;
+      border: none;
+      background: linear-gradient(80deg, #1f2937, #00CCCC);
+      animation: gradientBackground 15s ease infinite;
+      font-weight: bold;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+    
+    .submit-btn:hover {
+      box-shadow: 0 0 10px #00ffff6c, 0 0 15px #00ffff6c, 0 0 20px #00ffff6c;
+      transform: scale(1.05);
+      transform: translateY(-3px);
+    }
+    
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+      transform: skewX(-20deg);
+    }
+
+    .cancel-btn {
+      color: white;
+      border: none;
+      background: linear-gradient(80deg, #1f2937, #444c56);
+  animation: gradientBackground 15s ease infinite;
+  
+    }
+    
+    .cancel-btn:hover {
+      background-color: #333d47;
+      transform: translateY(-3px);
+      box-shadow: 0 0 5px #00ffff15, 0 0 10px #00ffff15, 0 0 15px #00ffff15;
+    }
+  
+    @keyframes gradientBackground {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  
+    .submit-btn, .cancel-btn {
+      padding: 10px 15px;
+      font-size: 14px;///////
+    }
+  
+    @keyframes scaleIn {
+      0% {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+

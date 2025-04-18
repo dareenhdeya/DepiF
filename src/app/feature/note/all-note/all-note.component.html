@@ -1,1 +1,54 @@
-<p>all-note works!</p>
+<div class="layout">
+<app-sidebar></app-sidebar>
+<div class="main-content">
+  <div class="hero">
+    <div class="crudhead">
+      <div class="btns">
+        <button (click)="getAllNotes()">Show All</button>
+        <button (click)="deleteAllNotes()">Delete All</button>
+      </div>
+    </div>
+
+    <div class="rowhead">
+      <div>title</div>
+      <div>content</div>
+      <div>category</div>
+      <div>priority</div>
+      <div>tags</div>
+      <div>show</div>
+      <div>edit</div>
+      <div>delete</div>
+    </div>
+
+    <div>
+      <div
+        class="rowdata"
+        *ngFor="let note of notes"
+        [@noteAnimation]
+        [@creativeDelete]="deleteStates[note.id ?? -1] || 'visible'"
+        data-aos="fade-right"
+      >
+      <div>{{ note.title }}</div>
+      <div>{{ note.content }}</div>
+        <div>{{ note.category || '—' }}</div>
+        <div>{{ note.priority || '—' }}</div>
+        <div>{{ note.tags?.join(', ') || '—' }}</div>
+       
+
+        <div class="showbtn">
+          <button (click)="goToNote(note)">show</button>
+        </div>
+        <div class="editbtn">
+          <button (click)="editNote(note)">Edit</button>
+        </div>
+        <div class="deletebtn">
+          <button type="button" (click)="deleteOneNote(note)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

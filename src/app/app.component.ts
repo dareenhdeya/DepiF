@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { LoadingService } from './core/services/loading.service';
+import { ISourceOptions, tsParticles } from 'tsparticles-engine';
+import { initParticles } from './shared/particles';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,8 @@ import { LoadingService } from './core/services/loading.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  title='app';
   constructor(
     private router: Router,
     private loadingService: LoadingService
@@ -20,7 +25,6 @@ export class AppComponent implements OnInit {
         event instanceof NavigationCancel ||
         event instanceof NavigationError
       ) {
-        // إخفاء اللودر بعد 3 ثواني لما التنقل ينتهي
         setTimeout(() => {
           this.loadingService.hide();
         }, 1000);
@@ -29,6 +33,27 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadingService.hide();
+    AOS.init();
+    this.loadingService.show();  
+  initParticles().then(() => {
+    this.loadingService.hide();  
+  });
+  this.router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      const isHome = this.router.url === '/home'; 
+      if (isHome) {
+        const particlesContainer = document.getElementById('tsparticles');
+        if (particlesContainer) {
+          tsParticles.dom().forEach(instance => instance.destroy());
+          setTimeout(() => {
+            initParticles();
+          }, 0);
+        }
+      } else {
+        // tsParticles.dom().forEach(instance => instance.destroy());
+      }
+    }
+  });
+  
   }
 }

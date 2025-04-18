@@ -1,1 +1,21 @@
-<p>show-note works!</p>
+<div class="layout" >
+  <app-sidebar></app-sidebar>
+    <div class="container">
+      <div class="note-card" *ngIf="note">
+        <h1>{{ note.title }}</h1>
+  
+        <div class="note-details">
+          <p><strong>Category:</strong> {{ note.category }}</p>
+          <p><strong>Priority:</strong> {{ note.priority }}</p>
+          <p><strong>Tags:</strong> {{ note.tags?.join(', ') || '—' }}</p>
+          <p><strong>Content:</strong> {{ note.content }}</p>
+        </div>
+  
+        <div class="button-container">
+          <button (click)="editNote(note)" class="submit-btn">Edit</button>
+          <button (click)="goBack()" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

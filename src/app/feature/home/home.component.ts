@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from 'src/app/shared/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common'; 
+import { NoteService } from 'src/app/core/services/note.service';
 
 @Component({
   selector: 'app-home',
@@ -17,17 +18,32 @@ export class HomeComponent implements OnInit {
   totalPayment = 0;
   totalQuantity = 0;
 
-  private finalNotes = 3;
+  private finalNotes = 0;
   private finalPayment = 250.00;
   private finalQuantity = 3;
 
+  constructor(private noteService: NoteService) {}
+
   ngOnInit() {
-    this.animateCounter();
+    this.loadNotes();
+  }
+
+  loadNotes() {
+    this.noteService.getNotes().subscribe({
+      next: (notes) => {
+        this.finalNotes = notes.length;
+        this.animateCounter();
+      },
+      error: (err) => {
+        console.error('Error fetching notes:', err);
+      }
+    });
   }
 
   animateCounter() {
-    const duration = 3000; 
-    const steps = 60; 
+    const duration = 3000;
+    const steps = 60;
+
     const notesStep = this.finalNotes / steps;
     const paymentStep = this.finalPayment / steps;
     const quantityStep = this.finalQuantity / steps;
