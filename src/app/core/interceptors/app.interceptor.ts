@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoadingService } from '../services/loading.service';
 
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loadingService: LoadingService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
@@ -21,6 +22,8 @@ export class AppInterceptor implements HttpInterceptor {
       });
     }
 
+    this.loadingService.show();
+
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -28,6 +31,9 @@ export class AppInterceptor implements HttpInterceptor {
           this.router.navigate(['/signin'], { queryParams: { error: 'unauthorized' } });
         }
         return throwError(() => error);
+      }),
+      finalize(() => {
+        this.loadingService.hide();
       })
     );
   }

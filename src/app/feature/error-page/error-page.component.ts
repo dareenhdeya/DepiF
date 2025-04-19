@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from "../../shared/sidebar/sidebar.component";
-import { RouterLink } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss'],
   standalone: true,
-  imports: [
-    SidebarComponent,
-    RouterLink 
-  ]
 })
-export class ErrorPageComponent {}
+export class ErrorPageComponent {
+  constructor(private router: Router) {}
+  goHome(): void {
+    this.router.navigate(['/home']);
+  }
+}

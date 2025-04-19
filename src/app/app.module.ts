@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from './core/interceptors/app.interceptor';
 import { AuthGuard } from './core/guards/auth.guard';
-import { LoadingModule } from './feature/loading/loading.module';
 import { SidebarComponent } from './shared/sidebar/sidebar.component'; // Import HttpClientModule
 import { CoreModule } from './core/core.module';
 
@@ -31,7 +30,6 @@ import { CoreModule } from './core/core.module';
       progressBar: true, 
       closeButton: true 
     }),
-    LoadingModule ,
     SidebarComponent
   ],
   providers: [
