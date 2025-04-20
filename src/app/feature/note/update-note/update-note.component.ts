@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UpdateNoteComponent implements OnInit{
   noteForm: FormGroup;
-  noteId!: number; // Non-null assertion
+  noteId!: number;
 
   constructor(
     private noteService: NoteService,

@@ -24,19 +24,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     AOS.init();
     initParticles();
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const isHome = this.router.url === '/home';
-        if (isHome) {
-          const particlesContainer = document.getElementById('tsparticles');
-          if (particlesContainer) {
-            tsParticles.dom().forEach((instance) => instance.destroy());
-            setTimeout(() => {
-              initParticles();
-            }, 0);
-          }
-        }
-      }
-    });
   }
 }

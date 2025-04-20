@@ -12,6 +12,7 @@ import { Note } from 'src/app/core/models/note.model';
 import * as AOS from 'aos';
 import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { initParticles } from 'src/app/shared/particles';
 
 @Component({
   selector: 'app-all-note',
@@ -73,6 +74,9 @@ export class AllNoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllNotes();
+   
+      initParticles();
+    
   }
 
   normalizeTags(tags: any): string[] {

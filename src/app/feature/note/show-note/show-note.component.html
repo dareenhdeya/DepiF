@@ -7,7 +7,7 @@
         <div class="note-details">
           <p><strong>Category:</strong> {{ note.category }}</p>
           <p><strong>Priority:</strong> {{ note.priority }}</p>
-          <p><strong>Tags:</strong> {{ note.tags?.join(', ') || '—' }}</p>
+          <p><strong>Tags:</strong> {{ note.tags.join(', ') || '—' }}</p>
           <p><strong>Content:</strong> {{ note.content }}</p>
         </div>
   

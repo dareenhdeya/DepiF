@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from 'src/app/shared/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common'; 
 import { NoteService } from 'src/app/core/services/note.service';
+import { initParticles } from 'src/app/shared/particles';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.loadNotes();
+    initParticles();
   }
 
   loadNotes() {
